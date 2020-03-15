@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div align="left">
+    <h2>Професии</h2>
+    <{{type}}>
+        {% for prof in profs %}
+        <li>{{prof}}</li>
+        {% endfor %}
+    </{{type}}>
+</div>
+{% endblock %}
