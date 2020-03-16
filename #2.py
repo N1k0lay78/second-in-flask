@@ -26,6 +26,21 @@ def list_prof(type):
                            title="Cписок профессий", profs=profs)
 
 
+@app.route('/answer/')
+@app.route('/auto_answer/')
+def anketa_answer():
+    user = {}
+    user['surname'] = input('Фамилия')
+    user['name'] = input('Имя')
+    user['education'] = input("Образование")
+    user['profession'] = input("Професия")
+    user['sex'] = input("Пол")
+    user['motivation'] = input("Мотивация")
+    user['ready'] = input("Готовы ли вы остаться на марсе?")
+    title = 'Анкета'
+    return render_template('auto_answer.html', user=user, style=url_for('static', filename='css/style.css'), title=title)
+
+
 if __name__ == '__main__':
-    print('http://127.0.0.1:8080/list_prof/ul')
+    print('http://127.0.0.1:8080/auto_answer/')
     app.run(port=8080, host='127.0.0.1')
