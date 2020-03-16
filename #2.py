@@ -56,9 +56,15 @@ def anketa_answer():
 @app.route('/login/')
 def login():
     form = RullingForm()
-    return render_template('rulling.html', title='Управление', form=form, file=url_for('static', filename='image/MARS.png'))
+    return render_template('rulling.html', style=url_for('static', filename='css/style.css'), title='Управление', form=form, file=url_for('static', filename='image/MARS.png'))
+
+
+@app.route('/distribution/')
+def distribution():
+    list = ['РИдли Скот', 'Энди Уир', 'Марк Уотни', 'Веката Капут', 'Тедди Сандерс', 'Шон Бин']
+    return render_template('list-users.html', style=url_for('static', filename='css/style.css'), title='Участники', users=list)
 
 
 if __name__ == '__main__':
-    print('http://127.0.0.1:8080/login/')
+    print('http://127.0.0.1:8080/distribution/')
     app.run(port=8080, host='127.0.0.1')
