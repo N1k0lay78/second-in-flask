@@ -1,0 +1,7 @@
+{
+  "Users": [
+    {"id": 1, "name":  "Энди", "surname": "Уир", "img": "small_mars.png", "spec": "астрагеолог"},
+    {"id": 2, "name":  "Ридли", "surname": "Скот", "img": "big_mars.png", "spec": "Capitain"},
+    {"id": 3, "name":  "Марк", "surname": "Уотни", "img": "small_mars.png", "spec": "Не указано"}
+  ]
+}

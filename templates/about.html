@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div align="center">
+    <h2>{{user["name"]}} {{user["surname"]}}</h2>
+    <img src="{{file}}">
+    <h4>{{user["spec"]}}</h4>
+</div>
+{% endblock %}

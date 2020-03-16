@@ -1,3 +1,6 @@
+import json
+from random import randrange
+
 from flask import Flask, url_for, render_template
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
@@ -78,6 +81,14 @@ def usre_caute(pol, age):
     return render_template('caute.html', style=url_for('static', filename='css/style.css'), title='Участники', type=image, file=url_for('static', filename=f'image/{file}'), file2=url_for('static', filename=f'image/{image}.png'))
 
 
+@app.route('/member/')
+def user():
+    i = randrange(3)
+    with open('templates/users.json', 'r', encoding='utf-8') as fh:  # открываем файл на чтение
+        user = json.load(fh)['Users'][i]  #загружаем из файла данные в словарь data
+    return render_template('about.html', style=url_for('static', filename='css/style.css'), title='Марсианин', user=user, file=url_for('static', filename=f'image/{user["img"]}'))
+
+
 if __name__ == '__main__':
-    print('http://127.0.0.1:8080/table/male/22')
+    print('http://127.0.0.1:8080/member/')
     app.run(port=8080, host='127.0.0.1')
