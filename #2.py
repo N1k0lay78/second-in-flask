@@ -65,6 +65,19 @@ def distribution():
     return render_template('list-users.html', style=url_for('static', filename='css/style.css'), title='Участники', users=list)
 
 
+@app.route('/table/<pol>/<int:age>')
+def usre_caute(pol, age):
+    image = 1
+    if age >= 21:
+        image += 1
+        file = 'big_mars.png'
+    else:
+        file = 'big_mars.png'
+    if pol == 'female':
+        image += 2
+    return render_template('caute.html', style=url_for('static', filename='css/style.css'), title='Участники', type=image, file=url_for('static', filename=f'image/{file}'), file2=url_for('static', filename=f'image/{image}.png'))
+
+
 if __name__ == '__main__':
-    print('http://127.0.0.1:8080/distribution/')
+    print('http://127.0.0.1:8080/table/male/22')
     app.run(port=8080, host='127.0.0.1')
