@@ -1,6 +1,18 @@
 from flask import Flask, url_for, render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+
+
+class RullingForm(FlaskForm):
+    id1 = StringField('ID пользователя', validators=[DataRequired()])
+    pasw1 = PasswordField('Пароль пользователя', validators=[DataRequired()])
+    id2 = StringField('ID пользователя', validators=[DataRequired()])
+    pasw2 = PasswordField('Пароль пользователя', validators=[DataRequired()])
+    submit = SubmitField('Зарегестрироваться')
 
 
 @app.route('/<title>')
@@ -41,6 +53,12 @@ def anketa_answer():
     return render_template('auto_answer.html', user=user, style=url_for('static', filename='css/style.css'), title=title)
 
 
+@app.route('/login/')
+def login():
+    form = RullingForm()
+    return render_template('rulling.html', title='Управление', form=form, file=url_for('static', filename='image/MARS.png'))
+
+
 if __name__ == '__main__':
-    print('http://127.0.0.1:8080/auto_answer/')
+    print('http://127.0.0.1:8080/login/')
     app.run(port=8080, host='127.0.0.1')

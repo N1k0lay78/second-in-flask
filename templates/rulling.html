@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<img src="{{file}}"><h1>Аварийный доступ</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <p>
+        {{ form.id1.label }}<br>
+        {{ form.id1(class="form-control") }}<br>
+        {% for error in form.id1.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        <p>
+        {{ form.pasw1.label }}<br>
+        {{ form.pasw1(class="form-control", type="password") }}<br>
+        {% for error in form.pasw1.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.id2.label }}<br>
+        {{ form.id2(class="form-control") }}<br>
+        {% for error in form.id2.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.pasw2.label }}<br>
+        {{ form.pasw2(class="form-control", type="password") }}<br>
+        {% for error in form.pasw2.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+{% endblock %}
