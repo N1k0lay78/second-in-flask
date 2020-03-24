@@ -1,7 +1,8 @@
 import json
+import os
 from random import randrange
 
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired
@@ -39,6 +40,13 @@ def list_prof(type):
              'киберинженер', 'штурман']
     return render_template('list-prof.html', type=type, style=url_for('static', filename='css/style.css'),
                            title="Cписок профессий", profs=profs)
+
+
+def get_list_numbers(number):
+    numbers = []
+    for i in range(1, number + 1):
+        numbers.append(i)
+    return numbers
 
 
 @app.route('/answer/')
@@ -84,11 +92,35 @@ def usre_caute(pol, age):
 @app.route('/member/')
 def user():
     i = randrange(3)
-    with open('templates/users.json', 'r', encoding='utf-8') as fh:  # открываем файл на чтение
-        user = json.load(fh)['Users'][i]  #загружаем из файла данные в словарь data
-    return render_template('about.html', style=url_for('static', filename='css/style.css'), title='Марсианин', user=user, file=url_for('static', filename=f'image/{user["img"]}'))
+    with open('templates/users.json', 'r', encoding='utf-8') as fh:
+        user = json.load(fh)['Users'][i]
+    return render_template('about.html', style=url_for('static', filename='css/style.css'), title='Марсианин', user=user, file=url_for('static', filename=f'image/{user["image"]}'))
+
+
+@app.route('/gallery', methods=['POST', 'GET'])
+def carousel_2():
+    if request.method == 'GET':
+        number = 0
+        while True:
+            if not os.path.exists(f'static/image/mars_{number + 1}.jpg'):
+                break
+            else:
+                number += 1
+        return render_template('galery.html', numbers=get_list_numbers(number), help=0)
+    if request.method == 'POST':
+        f = request.files['file']
+        number = 1
+        while True:
+            if not os.path.exists(f'static/image/mars_{number}.jpg'):
+                with open(f'static/image/mars_{number}.jpg', 'wb') as file:
+                    file.write(f.read())
+                break
+            else:
+                number += 1
+        return render_template('galery.html', numbers=get_list_numbers(number),
+                               filename=url_for('static', filename=f'image/mars_{number}.jpg'), help=1)
 
 
 if __name__ == '__main__':
-    print('http://127.0.0.1:8080/member/')
+    print('http://127.0.0.1:8080/gallery')
     app.run(port=8080, host='127.0.0.1')

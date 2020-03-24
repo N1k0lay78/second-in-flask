@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href={{style}}>
+</head>
+<body>
+<header class="black">
+    <h1>{{header}}</h1>
+</header>
+<div class="">
+    <a href="/works">
+        <img src="{{header_image}}" width="136" height="60">
+    </a>
+</div>
+<div>
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
